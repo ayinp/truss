@@ -1,4 +1,4 @@
-Truss Project Preliminary Design
+%Truss Project Preliminary Design
 %Input takes in C, Sx, Sy, X, Y, L
 
 [num_joints, num_members] = size(C);
