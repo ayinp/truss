@@ -1,6 +1,7 @@
 %Truss Project Preliminary Design
 %Input takes in C, Sx, Sy, X, Y, L
 
+%filename = input('What is the name of your input file (use quotes)? ')
 filename = 'practice_problem.mat';
 load(filename)
 
@@ -25,13 +26,37 @@ for m = 1:num_members
     Vy(1,m) = v(2)/r(1,m);
 end
 
-for i = 1:num_members
-    for j = 1:num_joints
-
+Cx = C(:,:);
+Cy = C(:,:);
+oneFound = false;
+for j = 1:num_members
+    for i = 1:num_joints
+        if(C(i,j)==1 && oneFound == false)
+            Cx(i,j) = Cx(i,j) * Vx(j);
+            Cy(i,j) = Cy(i,j) * Vy(j);
+            oneFound = true;
+        elseif(C(i,j)==1)
+            Cx(i,j) = Cx(i,j) * -Vx(j);
+            Cy(i,j) = Cy(i,j) * -Vy(j);
+        end
     end
 end
-% r will be array containing the member's lengths
-% Vx and Vy will be the unit vectors in the direction later-earlier
 
+A = [Cx, Sx; Cy, Sy];
 
+T = inv(A)*L;
+
+fprintf('%% EK301, Section A3, Group _, Derek L., Michelle Y., Ayin P., %s\n', datetime('today','Format','MM/dd/yyyy')); 
+fprintf('Load: %.2f oz\nMember forces in oz\n', norm(L)) 
+for(i = 1:num_members)
+    if(T(i) < 0)
+        fprintf('m%d: %.3f (%c)\n', i, -T(i), 'C') 
+    else
+        fprintf('m%d: %.3f (%c)\n', i, T(i), 'T')
+    end 
+end
+fprintf('Reaction forces in oz:\nSx1: %.2f\nSy1: %.2f\nSy2: %.2f\n', T(end-2), T(end-1), T(end))
+cost = 10*num_joints + 1*num_members;
+fprintf('Cost of truss: $%d\n', cost)
+fprintf('Theoretical max load/cost ratio in oz/$: %.4f\n', 0) %% need to change
 
