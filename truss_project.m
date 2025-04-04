@@ -1,8 +1,8 @@
 %Truss Project Preliminary Design
 %Input takes in C, Sx, Sy, X, Y, L
 
-%filename = input('What is the name of your input file (use quotes)? ')
-filename = 'practice_problem.mat';
+filename = input('What is the name of your input file (use quotes)? ')
+%filename = 'practice_problem.mat';
 load(filename)
 
 [num_joints, num_members] = size(C);
@@ -44,7 +44,24 @@ end
 
 A = [Cx, Sx; Cy, Sy];
 
-T = inv(A)*L;
+T = A \ L;
+
+Rm = T(1:num_members) / max(L);
+
+Pcrit = 2390.012 * (r .^ -1.811);
+
+Wfail = inf(num_members, 1);  
+
+for m = 1:num_members
+    if Rm(m) < 0
+        Wfail(m) = -Pcrit(m) / Rm(m);
+    end
+end
+
+[Wmax, crit_member] = min(Wfail);
+
+
+
 
 fprintf('%% EK301, Section A3, Group _, Derek L., Michelle Y., Ayin P., %s\n', datetime('today','Format','MM/dd/yyyy')); 
 fprintf('Load: %.2f oz\nMember forces in oz\n', norm(L)) 
@@ -60,3 +77,5 @@ cost = 10*num_joints + 1*num_members;
 fprintf('Cost of truss: $%d\n', cost)
 fprintf('Theoretical max load/cost ratio in oz/$: %.4f\n', 0) %% need to change
 
+fprintf('Critical member: %d\n', crit_member);
+fprintf('Max load before buckling: %.2f oz\n', Wmax);
