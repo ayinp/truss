@@ -75,7 +75,7 @@ end
 fprintf('Reaction forces in oz:\nSx1: %.2f\nSy1: %.2f\nSy2: %.2f\n', T(end-2), T(end-1), T(end))
 cost = 10*num_joints + 1*num_members;
 fprintf('Cost of truss: $%d\n', cost)
-fprintf('Theoretical max load/cost ratio in oz/$: %.4f\n', 0) %% need to change
+fprintf('Theoretical max load/cost ratio in oz/$: %.4f oz/$\n', Wmax/cost) %% need to change
 
 fprintf('Critical member: %d\n', crit_member);
 fprintf('Max load before buckling: %.2f oz\n', Wmax);
