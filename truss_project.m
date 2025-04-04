@@ -28,8 +28,8 @@ end
 
 Cx = C(:,:);
 Cy = C(:,:);
-oneFound = false;
 for j = 1:num_members
+    oneFound = false;
     for i = 1:num_joints
         if(C(i,j)==1 && oneFound == false)
             Cx(i,j) = Cx(i,j) * Vx(j);
