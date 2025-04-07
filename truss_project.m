@@ -79,6 +79,6 @@ fprintf('Cost of truss: $%.2f\n', cost)
 fprintf('Theoretical max load/cost ratio in oz/$: %.4f oz/$\n', Wmax/cost) %% need to change
 
 fprintf('Critical member: %d\n', crit_member);
-fprintf('Uncertainty in buckling force: +-1.35oz\n')
+fprintf('Uncertainty in buckling force: +-1.35 oz\n')
 fprintf('Max load before buckling: %.2f oz\n', Wmax)
-fprintf('Uncertainty in max load: +-%.2f\n', Uw)
+fprintf('Uncertainty in max load: +-%.2f oz\n', Uw)
