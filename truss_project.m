@@ -47,8 +47,7 @@ A = [Cx, Sx; Cy, Sy];
 T = A \ L;
 
 Rm = T(1:num_members) / max(L);
-
-Pcrit = 2390.012 * (r .^ -1.811);
+Pcrit = 2390.012 * (r .^ -1.811); %Pcrit represents the Buckling Strength
 
 Wfail = inf(num_members, 1);  
 
@@ -60,7 +59,9 @@ end
 
 [Wmax, crit_member] = min(Wfail);
 
-
+Uf = 1.35;
+Fmax = Pcrit(crit_member);
+Uw = (Uf/Fmax)*Wmax;
 
 
 fprintf('%% EK301, Section A3, Group 32, Derek L., Michelle Y., Ayin P., %s\n', datetime('today','Format','MM/dd/yyyy')); 
@@ -78,4 +79,6 @@ fprintf('Cost of truss: $%.2f\n', cost)
 fprintf('Theoretical max load/cost ratio in oz/$: %.4f oz/$\n', Wmax/cost) %% need to change
 
 fprintf('Critical member: %d\n', crit_member);
-fprintf('Max load before buckling: %.2f oz\n', Wmax);
+fprintf('Uncertainty in buckling force: +-1.35oz\n')
+fprintf('Max load before buckling: %.2f oz\n', Wmax)
+fprintf('Uncertainty in max load: +-%.2f\n', Uw)
