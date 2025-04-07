@@ -63,7 +63,7 @@ end
 
 
 
-fprintf('%% EK301, Section A3, Group _, Derek L., Michelle Y., Ayin P., %s\n', datetime('today','Format','MM/dd/yyyy')); 
+fprintf('%% EK301, Section A3, Group 32, Derek L., Michelle Y., Ayin P., %s\n', datetime('today','Format','MM/dd/yyyy')); 
 fprintf('Load: %.2f oz\nMember forces in oz\n', norm(L)) 
 for(i = 1:num_members)
     if(T(i) < 0)
