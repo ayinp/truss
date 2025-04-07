@@ -3,7 +3,7 @@
 
 filename = input('What is the name of your input file (use quotes)? ')
 %filename = 'practice_problem.mat';
-% load(filename)
+load(filename)
 
 [num_joints, num_members] = size(C);
 
